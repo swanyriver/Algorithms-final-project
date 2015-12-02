@@ -27,9 +27,9 @@ class primcity(object):
     return self.__repr__()
 
 
-def primmtree(cities):
+def primmtree(cities, rindex = None):
 
-  rindex = random.randrange(len(cities))
+  if rindex == None: rindex=random.randrange(len(cities))
 
   r = cities[rindex]
   #cities[rindex] = cities[0]
@@ -42,8 +42,6 @@ def primmtree(cities):
     #heap pop and city removed from Q
     uindex = min(xrange(len(cities[:i+1])),key=cities.__getitem__)
     u = cities[uindex]
-
-    print u.key
 
     #u = cities[0]
     #cities[0] = cities[i]

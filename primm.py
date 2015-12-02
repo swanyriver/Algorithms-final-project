@@ -10,7 +10,6 @@ class primcity(object):
     self.id = num
     self.x = x
     self.y = y
-    self.intree = False
     self.key = float('inf')
     self.predecessor = None
 
@@ -21,24 +20,45 @@ class primcity(object):
     return self.key < other.key
 
   def __repr__(self):
-    return "pcity id:%d x:%d y:%d"%(self.id,self.x,self.y)
+    return "pcity id:%d x:%d y:%d  predecessor:%d"%(self.id,self.x,self.y, self.predecessor.id)
 
   def __str__(self):
     return self.__repr__()
 
-    
 
 def primmtree(cities):
-  intree = [False] * len(cities)
 
-  r = cities[random.randrange(len(cities))]
+  rindex = random.randrange(len(cities))
+
+  r = cities[rindex]
+  #cities[rindex] = cities[0]
+  #cities[0] = r
 
   r.key = 0
 
-  Que = [r]
-  intree[r.id]=True
+  for i in range(len(cities)-1,-1,-1):
+    
+    #heap pop and city removed from Q
+    uindex = min(xrange(len(cities[:i+1])),key=cities.__getitem__)
+    u = cities[uindex]
 
-  while  Que:
-    u = heapq.heappop(Que)
-    #for city in cities:
+    print u.key
+
+    #u = cities[0]
+    #cities[0] = cities[i]
+    cities[uindex] = cities[i]
+    cities[i] = u
+
+    for v in cities[:i]:
+      #non sqrt distances are compared
+      #v.key = min((u.x-v.x)**2 + (u.y-v.y)**2,v.key)
+      newkey = (u.x-v.x)**2 + (u.y-v.y)**2
+      if newkey < v.key:
+        v.key = newkey
+        v.predecessor = u
+
+
+
+
+    
 

@@ -32,30 +32,31 @@ def primmtree(cities, rindex = None):
   if rindex == None: rindex=random.randrange(len(cities))
 
   r = cities[rindex]
-  #cities[rindex] = cities[0]
-  #cities[0] = r
+  cities[rindex] = cities[-1]
+  cities[-1] = r
 
-  r.key = 0
+  r.key = None
+  u = r
 
-  for i in range(len(cities)-1,-1,-1):
+  for i in range(len(cities)-2,0,-1):
+
+    bestnextedge = float('inf')
+
     
-    #heap pop and city removed from Q
-    uindex = min(xrange(len(cities[:i+1])),key=cities.__getitem__)
-    u = cities[uindex]
 
-    #u = cities[0]
-    #cities[0] = cities[i]
+    for v in range(i+1):
+      #non sqrt distances are compared
+      newkey = (u.x-cities[v].x)**2 + (u.y-cities[v].y)**2
+      if newkey < cities[v].key:
+        cities[v].key = newkey
+        cities[v].predecessor = u
+      if cities[v].key < bestnextedge:
+        bestnextedge = newkey
+        uindex = v
+
+    u = cities[uindex]
     cities[uindex] = cities[i]
     cities[i] = u
-
-    for v in cities[:i]:
-      #non sqrt distances are compared
-      #v.key = min((u.x-v.x)**2 + (u.y-v.y)**2,v.key)
-      newkey = (u.x-v.x)**2 + (u.y-v.y)**2
-      if newkey < v.key:
-        v.key = newkey
-        v.predecessor = u
-
 
   #convert to a descendant tree
   for city in cities[:-1]:

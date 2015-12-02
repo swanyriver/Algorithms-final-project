@@ -11,7 +11,10 @@ if len(sys.argv) < 2:
 
 cities = getcities.readCities(sys.argv[1], primm.primcity)
 
-primm.primmtree(cities)
+root = primm.primmtree(cities)
 
 for city in cities:
   print city
+
+
+#for city in cities

@@ -21,7 +21,7 @@ class primcity(object):
     return self.key < other.key
 
   def __repr__(self):
-    return "pcity id:%d x:%d y:%d  predecessor:%r, descendants:%r"%(self.id,self.x,self.y, self.predecessor.id if self.predecessor else None, self.descendants )
+    return "pcity id:%d x:%d y:%d  predecessor:%r, descendants:%r"%(self.id,self.x,self.y, self.predecessor.id if self.predecessor else None, [x.id for x in self.descendants] )
 
   def __str__(self):
     return self.__repr__()
@@ -57,6 +57,12 @@ def primmtree(cities):
       if newkey < v.key:
         v.key = newkey
         v.predecessor = u
+
+
+  #convert to a descendant tree
+  for city in cities[:-1]:
+    city.predecessor.descendants.append(city)
+
 
   return r
 

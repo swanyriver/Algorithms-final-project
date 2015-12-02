@@ -10,10 +10,12 @@ class City(object):
     return self.__repr__()
 
 
-def readCities(filename):
+
+
+def readCities(filename, cityconstructor=City):
   cityfile = open(filename,'r')
 
-  cities = [ City(*(int(x) for x in line.split(' ') if x)) for line in cityfile ]
+  cities = [ cityconstructor(*(int(x) for x in line.split(' ') if x)) for line in cityfile ]
 
   cityfile.close()
 

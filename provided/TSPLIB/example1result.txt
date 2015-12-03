@@ -1,11 +1,11 @@
-************************************************************
+*************************************************************
 
    NEOS Server Version 5.0
-   Job#     : 4020408
-   Password : HfokavPX
+   Job#     : 4047156
+   Password : tgKiFxkh
    Solver   : co:concorde:TSP
-   Start    : 2015-12-01 23:22:27
-   End      : 2015-12-01 23:22:33
+   Start    : 2015-12-03 15:46:54
+   End      : 2015-12-03 15:47:00
    Host     : thales.la.asu.edu
 
    Disclaimer:
@@ -16,30 +16,114 @@
    information  for any particular purpose.
 *************************************************************
 /home/neos5/bin/concorde.cplex -s 99 -f sample.tsp
-Host: thales  Current process id: 3591
+Host: thales  Current process id: 30687
 Using random seed 99
 Problem Name: example 1
 Problem Type: TSP
-Number of Nodes: 75
+Number of Nodes: 76
 Rounded Euclidean Norm (CC_EUCLIDEAN)
-Set initial upperbound to 108048 (from tour)
-  LP Value  1: 99193.000000  (0.00 seconds)
-  LP Value  2: 105588.583333  (0.02 seconds)
-  LP Value  3: 106671.375000  (0.04 seconds)
-  LP Value  4: 107854.537594  (0.08 seconds)
-  LP Value  5: 108009.458054  (0.11 seconds)
-  LP Value  6: 108048.000000  (0.12 seconds)
-  LP Value  7: 108048.000000  (0.13 seconds)
-New lower bound: 108048.000000
-Final lower bound 108048.000000, upper bound 108048.000000
-Exact lower bound: 108048.000000
+Set initial upperbound to 108159 (from tour)
+  LP Value  1: 99162.125000  (0.02 seconds)
+  LP Value  2: 106062.333333  (0.03 seconds)
+  LP Value  3: 107221.058824  (0.06 seconds)
+  LP Value  4: 107884.353361  (0.09 seconds)
+  LP Value  5: 108049.166677  (0.12 seconds)
+  LP Value  6: 108159.000000  (0.14 seconds)
+New lower bound: 108159.000000
+Final lower bound 108159.000000, upper bound 108159.000000
+Exact lower bound: 108159.000000
 DIFF: 0.000000
-Final LP has 167 rows, 348 columns, 5379 nonzeros
-Optimal Solution: 108048.00
+Final LP has 165 rows, 344 columns, 5200 nonzeros
+Optimal Solution: 108159.00
 Number of bbnodes: 1
-Total Running Time: 0.24 (seconds)
+Total Running Time: 0.26 (seconds)
 
 
-class provided hueristic result: 111133  ratio 1.02
+***  ***
 
 
+
+*** You chose the Concorde(CPLEX) solver ***
+
+
+
+*** Cities are numbered 0..n-1 and each line shows a leg from one city to the next 
+ followed by the distance rounded to integers***
+
+76 76
+0 1 3716
+1 23 1931
+23 22 1433
+22 21 1193
+21 25 550
+25 24 1118
+24 46 1931
+46 45 1433
+45 44 1193
+44 48 550
+48 47 1118
+47 69 1931
+69 68 1433
+68 70 3946
+70 67 3905
+67 50 3100
+50 49 700
+49 51 1629
+51 66 1053
+66 65 716
+65 71 4070
+71 72 1900
+72 73 300
+73 64 3250
+64 63 667
+63 62 1512
+62 61 700
+61 41 2261
+41 60 550
+60 59 522
+59 58 1164
+58 57 1118
+57 56 1617
+56 55 700
+55 52 1364
+52 53 906
+53 54 583
+54 42 550
+42 43 716
+43 28 1053
+28 27 1369
+27 26 700
+26 20 3046
+20 19 716
+19 31 550
+31 30 583
+30 29 906
+29 32 1364
+32 33 700
+33 35 1841
+35 34 1118
+34 40 1280
+40 39 1512
+39 38 700
+38 36 1390
+36 37 522
+37 18 550
+18 17 667
+17 16 1512
+16 15 700
+15 74 4533
+74 14 3158
+14 13 522
+13 12 1164
+12 11 1118
+11 10 1617
+10 9 700
+9 8 2000
+8 7 583
+7 6 906
+6 5 1115
+5 4 1369
+4 3 700
+3 2 2926
+2 75 3640
+75 0 300

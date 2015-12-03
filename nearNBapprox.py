@@ -27,7 +27,7 @@ for i,j in zip(range(len(cities)), range(1,len(cities)) + [0]):
 
 print totaldistance
 # print "\n".join([str(x.id) + str([y.city.id for y in x.neighbors[:-1]]) for x in cities])
-print "\n".join([str(x.id) for x in cities])
+#print "\n".join([str(x.id) for x in cities])
 
 
 

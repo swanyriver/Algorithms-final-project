@@ -3,9 +3,11 @@ import functools
 @functools.total_ordering
 class Neighbor(object):
   """docstring for neighbor"""
-  def __init__(self, city, distance):
+  def __init__(self, city, distance, prevNB=None, nextNB=None):
     self.city = city
     self.distance = distance
+    # self.next = nextNB
+    # self.prev = prevNB
   def __eq__(self,other): 
     return self.distance == other.distance
   def __lt__(self,other): 
@@ -35,12 +37,10 @@ class nearcity(object):
 
   def capacityaddneighbor(self,city, distance):
 
+    if distance >= self.neighbors[-2]:return
+
     self.neighbors[-1] = Neighbor(city, distance)
     self.neighbors.sort()
-    self.neighbors[-1] = self.INF
-
-    return distance
-
 
 
   # def __repr__(self):

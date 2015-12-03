@@ -25,46 +25,82 @@ def swap(tour,b,c):
   updateindexes(tour,b.index,c.index+1)
 
 
-# def unsqrtdistance(u,v):
-#   return (u.x-v.x)**2 + (u.y-v.y)**2 
+def unsqrtdistance(u,v):
+  return (u.x-v.x)**2 + (u.y-v.y)**2 
 
 # def swapconstraint(a,b,c,d):
 #   if distance(a,b) + distance(c,d) > distance(a,d) + distance(c,b)
 
+# def twoopt(tour):
+#   updateindexes(tour,0,len(tour))
+
+#   index = 0
+#   while index < len(tour):
+
+#     totaldistance = tourdistance(tour)
+#     print totaldistance, [x.id for x in tour]
+
+#     print "city:%d neighbors%r"%(tour[index].id, [x.city.id for x in tour[index].neighbors])
+
+#     a = tour[index]
+#     c = a.neighbors[1].city
+
+#     if index>c.index: a,c = c,a
+
+
+#     #ahhhhhh, what if it is going the other way,  what if it crosses over the seam :(
+
+#     b = tour[a.index+1]
+#     d = tour[(c.index+1)%len(cities)]
+
+#     if b is not c and distance(a,b) + distance(c,d) > distance(a,d) + distance(c,b):
+#       swap(tour,b,c)
+
+#       newtourdistance = tourdistance(tour)
+#       print newtourdistance, [x.id for x in tour]
+#       assert newtourdistance < totaldistance
+#       assert [x.index for x in tour] == range(len(tour))
+#       totaldistance = newtourdistance
+
+
+#     index += 1
+
 def twoopt(tour):
   updateindexes(tour,0,len(tour))
 
-  index = 0
-  while index < len(tour):
+  for a in list(tour):
 
     totaldistance = tourdistance(tour)
     print totaldistance, [x.id for x in tour]
 
-    print "city:%d neighbors%r"%(tour[index].id, [x.city.id for x in tour[index].neighbors])
+    print "city:%d neighbors%r"%(tour[a.index].id, [x.city.id for x in tour[a.index].neighbors])
 
-    a = tour[index]
-    c = a.neighbors[1].city
+    for c in [x.city for x in a.neighbors]:
 
-    if index>c.index: a,c = c,a
+      if a.index>c.index: a,c = c,a
+
+      b = tour[a.index+1]
+      d = tour[(c.index+1)%len(cities)]
+
+      #if b is not c and distance(a,b) + distance(c,d) > distance(a,d) + distance(c,b):
+      if b is not c and distance(a,b) + distance(c,d) > distance(a,c) + distance(b,d):
+        print [x.id for x in tour[a.index:d.index+1]], tourdistance(tour[a.index:d.index+1])
+        print ["%d->%d:%d"%(tour[i].id,tour[i+1].id,distance(tour[i],tour[i+1])) for i in range(a.index,d.index)]
+
+        print "a-b:%d + c-d:%d (%d) < a-d:%d + c-b%d (%d)"%(distance(a,b),distance(c,d),distance(a,b)+distance(c,d) , distance(a,d), distance(c,b),distance(a,d) + distance(c,b))
+
+        swap(tour,b,c)
+
+        print [x.id for x in tour[a.index:d.index+1]], tourdistance(tour[a.index:d.index+1])
+        print ["%d->%d:%d"%(tour[i].id,tour[i+1].id,distance(tour[i],tour[i+1])) for i in range(a.index,d.index)]
 
 
-    #ahhhhhh, what if it is going the other way,  what if it crosses over the seam :(
 
-    b = tour[a.index+1]
-    d = tour[(c.index+1)%len(cities)]
-
-    if b is not c and distance(a,b) + distance(c,d) > distance(a,d) + distance(c,b):
-      swap(tour,b,c)
-
-      newtourdistance = tourdistance(tour)
-      print newtourdistance, [x.id for x in tour]
-      assert newtourdistance < totaldistance
-      assert [x.index for x in tour] == range(len(tour))
-      totaldistance = newtourdistance
-
-
-    index += 1
-
+        newtourdistance = tourdistance(tour)
+        print newtourdistance, [x.id for x in tour]
+        assert newtourdistance < totaldistance
+        assert [x.index for x in tour] == range(len(tour))
+        totaldistance = newtourdistance
 
 
 if len(sys.argv) < 2: 
@@ -74,10 +110,7 @@ if len(sys.argv) < 2:
 
 cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
 
-nearestneighbor.nearneighbortour(cities)
-
-for city in cities:
-  print [x.city.id for x in city.neighbors], None in [city.neighbors]
+nearestneighbor.nearneighbortour(cities,11)
 
 print tourdistance(cities)
 

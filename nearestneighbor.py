@@ -15,12 +15,12 @@ class Neighbor(object):
 
 class nearcity(object):
   """subclass of tsp city for nearest neighbor"""
-  NUMNEIGHBORS = 10
-  def __init__(self, num, x,y):
+  def __init__(self, num, x,y, NUMNEIGHBORS = 5):
     self.id = num
     self.x = x
     self.y = y
     self.neighbors = []
+    self.NUMNEIGHBORS = NUMNEIGHBORS
 
   def addneighbor(self,city, distance):
     self.neighbors.append( Neighbor(city,distance) )
@@ -32,7 +32,7 @@ class nearcity(object):
 
   def capacityaddneighbor(self,city, distance):
 
-    if distance >= self.neighbors[-2]:return
+    if distance >= self.neighbors[-2].distance:return
 
     self.neighbors[-1] = Neighbor(city, distance)
     self.neighbors.sort()
@@ -54,23 +54,23 @@ def nearneighbortour(cities,rindex = None):
   cities[rindex],cities[0] = cities[0],cities[rindex]
 
   for u in range(0,len(cities)-1):
-    # for v in range(0,u):
-    #   cities[u].addneighbor(cities[v], (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2 )
+    for v in range(0,u):
+      cities[u].addneighbor(cities[v], (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2 )
 
     nearNBIndex = None
     nearNBDist = float('inf')  
     for v in range(u+1,len(cities)):
 
       distance = (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2
-      # cities[u].addneighbor(cities[v], distance)
+      cities[u].addneighbor(cities[v], distance)
       if distance < nearNBDist:
         nearNBDist = distance
         nearNBIndex = v
 
     cities[u+1],cities[nearNBIndex] = cities[nearNBIndex],cities[u+1]
 
-  # for v in cities[:-1]:
-  #     cities[-1].addneighbor(v, (cities[-1].x - v.x)**2 + (cities[-1].y - v.y)**2 )
+  for v in cities[:-1]:
+    cities[-1].addneighbor(v, (cities[-1].x - v.x)**2 + (cities[-1].y - v.y)**2 )
 
 
 

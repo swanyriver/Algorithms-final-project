@@ -15,7 +15,7 @@ class Neighbor(object):
 
 class nearcity(object):
   """subclass of tsp city for nearest neighbor"""
-  def __init__(self, num, x,y, NUMNEIGHBORS = 5):
+  def __init__(self, num, x,y, NUMNEIGHBORS = 10):
     self.id = num
     self.x = x
     self.y = y

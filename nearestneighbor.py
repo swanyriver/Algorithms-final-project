@@ -6,8 +6,6 @@ class Neighbor(object):
   def __init__(self, city, distance, prevNB=None, nextNB=None):
     self.city = city
     self.distance = distance
-    # self.next = nextNB
-    # self.prev = prevNB
   def __eq__(self,other): 
     return self.distance == other.distance
   def __lt__(self,other): 
@@ -17,23 +15,20 @@ class Neighbor(object):
 
 class nearcity(object):
   """subclass of tsp city for nearest neighbor"""
-  NUMNEIGHBORS = 5
+  NUMNEIGHBORS = 10
   def __init__(self, num, x,y):
     self.id = num
     self.x = x
     self.y = y
     self.neighbors = []
-    self.INF = Neighbor(None,float('inf'))
 
   def addneighbor(self,city, distance):
     self.neighbors.append( Neighbor(city,distance) )
 
     if len(self.neighbors) == self.NUMNEIGHBORS:
       self.neighbors.sort()
-      self.neighbors.append(self.INF)
+      self.neighbors.append(None)
       self.addneighbor = self.capacityaddneighbor
-
-    return distance
 
   def capacityaddneighbor(self,city, distance):
 

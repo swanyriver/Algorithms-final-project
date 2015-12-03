@@ -62,6 +62,7 @@ for i,j in zip(range(len(tour)), range(1,len(tour)) + [0]):
     #print i,":",tour[i].id
 
 print totaldistance
+print "\n".join([str(x.id) for x in tour])
 
 
 

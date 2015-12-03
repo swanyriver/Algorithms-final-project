@@ -6,10 +6,8 @@ class Neighbor(object):
   def __init__(self, city, distance):
     self.city = city
     self.distance = distance
-    self.next = None
   def __eq__(self,other): 
     return self.distance == other.distance
-    
   def __lt__(self,other): 
     return self.distance < other.distance
 
@@ -23,10 +21,9 @@ class nearcity(object):
     self.x = x
     self.y = y
     self.neighbors = []
-    self.neighborsback = self.neighborsfront
     self.INF = Neighbor(None,float('inf'))
 
-  def addneighbor(city, distance):
+  def addneighbor(self,city, distance):
     self.neighbors.append( Neighbor(city,distance) )
 
     if len(self.neighbors) == self.NUMNEIGHBORS:
@@ -36,7 +33,7 @@ class nearcity(object):
 
     return distance
 
-  def capacityaddneighbor(city, distance):
+  def capacityaddneighbor(self,city, distance):
 
     self.neighbors[-1] = Neighbor(city, distance)
     self.neighbors.sort()
@@ -61,21 +58,24 @@ def nearneighbortour(cities,rindex = None):
 
   cities[rindex],cities[0] = cities[0],cities[rindex]
 
-  for u in range(0,len(cities)):
-    for v in range(0,u):
-      cities[u].addneighbor(cities[v], (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2 )
+  for u in range(0,len(cities)-1):
+    # for v in range(0,u):
+    #   cities[u].addneighbor(cities[v], (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2 )
 
-    nearNBIndex = u
+    nearNBIndex = None
     nearNBDist = float('inf')  
     for v in range(u+1,len(cities)):
 
       distance = (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2
-      cities[u].addneighbor(cities[v], distance)
+      # cities[u].addneighbor(cities[v], distance)
       if distance < nearNBDist:
         nearNBDist = distance
         nearNBIndex = v
 
     cities[u+1],cities[nearNBIndex] = cities[nearNBIndex],cities[u+1]
+
+  # for v in cities[:-1]:
+  #     cities[-1].addneighbor(v, (cities[-1].x - v.x)**2 + (cities[-1].y - v.y)**2 )
 
 
 

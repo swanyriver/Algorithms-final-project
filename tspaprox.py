@@ -42,9 +42,6 @@ distances = []
 # print "minimum:",min(distances), " maximum:", max(distances)
 
 
-
-cities = getcities.readCities(sys.argv[1], primm.primcity)
-
 root = primm.primmtree(cities)
 
 stack = [root]

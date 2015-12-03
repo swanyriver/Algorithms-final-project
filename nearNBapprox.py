@@ -14,18 +14,13 @@ if len(sys.argv) < 2:
 
 cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
 
-distances = []
+nearestneighbor.nearneighbortour(cities)
 
+from itertools import izip_longest
+print sum( distance(cities[u],cities[v]) 
+    for u,v in 
+    izip_longest(range(len(cities)),range(1,len(cities)), fillvalue=0) )
 
-nearestneighbor.nearneighbortour(cities,13)
-
-totaldistance = 0
-#this will not scale well
-for i,j in zip(range(len(cities)), range(1,len(cities)) + [0]):
-    totaldistance += distance(cities[i],cities[j])
-    #print i,":",cities[i].id
-
-print totaldistance
 # print "\n".join([str(x.id) + str([y.city.id for y in x.neighbors[:-1]]) for x in cities])
 #print "\n".join([str(x.id) for x in cities])
 

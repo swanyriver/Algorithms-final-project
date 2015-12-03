@@ -3,7 +3,7 @@ import functools
 @functools.total_ordering
 class Neighbor(object):
   """docstring for neighbor"""
-  def __init__(self, city, distance, prevNB=None, nextNB=None):
+  def __init__(self, city, distance):
     self.city = city
     self.distance = distance
   def __eq__(self,other): 

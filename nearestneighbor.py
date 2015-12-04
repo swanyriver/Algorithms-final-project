@@ -17,7 +17,7 @@ class Neighbor(object):
 
 class nearcity(object):
   """subclass of tsp city for nearest neighbor"""
-  def __init__(self, num, x,y, NUMNEIGHBORS = 20):
+  def __init__(self, num, x,y, NUMNEIGHBORS = 10):
     self.id = num
     self.x = x
     self.y = y
@@ -40,12 +40,6 @@ class nearcity(object):
     self.neighbors.sort()
 
 
-  # def __repr__(self):
-  #   return "pcity id:%d x:%d y:%d  predecessor:%r, descendants:%r"%(self.id,self.x,self.y, self.predecessor.id if self.predecessor else None, [x.id for x in self.descendants] )
-
-  # def __str__(self):
-  #   return self.__repr__()
-
 
 def setindex(city,i):
   city.index = i
@@ -57,28 +51,43 @@ def updateindexes(tour,start,end):
 
 def nearneighbortour(cities,rindex = None):
 
+  updateindexes(cities,0,len(cities))
+
   if rindex == None: rindex=random.randrange(len(cities))
 
   cities[rindex],cities[0] = cities[0],cities[rindex]
+  cities[rindex].index,cities[0].index = rindex,0
 
   for u in range(0,len(cities)-1):
-    for v in range(0,u):
-      cities[u].addneighbor(cities[v], (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2 )
+
+    usableNeighbors = [x.city for x in cities[u].neighbors if x.city.index > u]
+
+    if usableNeighbors:
+      cities[u+1], cities[usableNeighbors[0].index] = cities[usableNeighbors[0].index], cities[u+1]
+      cities[u+1].index = u+1
+      cities[usableNeighbors[0].index].index = usableNeighbors[0].index
+      continue
 
     nearNBIndex = None
     nearNBDist = float('inf')  
     for v in range(u+1,len(cities)):
 
       distance = (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2
-      cities[u].addneighbor(cities[v], distance)
       if distance < nearNBDist:
         nearNBDist = distance
         nearNBIndex = v
 
     cities[u+1],cities[nearNBIndex] = cities[nearNBIndex],cities[u+1]
+    cities[u+1].index = u+1
+    cities[nearNBIndex].index = nearNBIndex
 
-  for v in cities[:-1]:
-    cities[-1].addneighbor(v, (cities[-1].x - v.x)**2 + (cities[-1].y - v.y)**2 )
+
+
+def nearneighbors(cities):
+
+  for u,v in ((u,v) for u in range(len(cities)) for v in range(len(cities)) if u != v):
+    cities[u].addneighbor(cities[v], (cities[u].x - cities[v].x)**2 + (cities[u].y - cities[v].y)**2 )
+
 
 
 

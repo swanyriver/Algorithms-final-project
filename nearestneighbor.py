@@ -1,8 +1,6 @@
-import functools
 import random
 random.seed()
 
-@functools.total_ordering
 class Neighbor(object):
   """docstring for neighbor"""
   def __init__(self, city, distance):
@@ -12,7 +10,12 @@ class Neighbor(object):
     return self.distance == other.distance
   def __lt__(self,other): 
     return self.distance < other.distance
-
+  def __le__(self,other): 
+    return self.distance <= other.distance
+  def __gt__(self,other): 
+    return self.distance > other.distance
+  def __ge__(self,other): 
+    return self.distance >= other.distance
     
 
 class nearcity(object):

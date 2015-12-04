@@ -4,7 +4,6 @@ from math import sqrt
 import sys
 from itertools import izip_longest
 from time import time
-from random import shuffle
 
 def distance(u,v):
   return int(round(sqrt( (u.x-v.x)**2 + (u.y-v.y)**2 )))
@@ -13,13 +12,6 @@ def tourdistance(tour):
   return sum( distance(tour[u],tour[v]) 
     for u,v in 
     izip_longest(range(len(tour)),range(1,len(tour)), fillvalue=0) )
-
-# def setindex(city,i):
-#   city.index = i
-#   return city
-
-# def updateindexes(tour,start,end):
-#   tour[start:end] = [setindex(tour[i],i) for i in range(start,end)]
 
 def swap(tour,b,c):
   #print "swaping city%d @%d and city%d @%d"%(b.id,b.index,c.id,c.index)
@@ -77,6 +69,7 @@ besttour = float('inf')
 besttourstring = ""
 
 hardcopycities = cities
+#from random import shuffle
 #shuffle(hardcopycities)
 
 twoopts = []

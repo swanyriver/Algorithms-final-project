@@ -20,7 +20,7 @@ def updateindexes(tour,start,end):
   tour[start:end] = [setindex(tour[i],i) for i in range(start,end)]
 
 def swap(tour,b,c):
-  print "swaping city%d @%d and city%d @%d"%(b.id,b.index,c.id,c.index)
+  #print "swaping city%d @%d and city%d @%d"%(b.id,b.index,c.id,c.index)
   tour[b.index:c.index+1] = reversed(tour[b.index:c.index+1])
   updateindexes(tour,b.index,c.index+1)
 
@@ -54,9 +54,16 @@ cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
 
 nearestneighbor.nearneighbortour(cities)
 
-print tourdistance(cities)
+totaldistance = tourdistance(cities)
+improvment = 1
+while improvment:
+  print totaldistance
+  twoopt(cities)
+  newdistance = tourdistance(cities)
+  improvment = totaldistance - newdistance
+  totaldistance = newdistance
 
-twoopt(cities)
+#twoopt(cities)
 
 print tourdistance(cities)
 

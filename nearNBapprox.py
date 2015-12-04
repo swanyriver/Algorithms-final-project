@@ -34,7 +34,7 @@ def twoopt(tour):
 
   for a in list(tour):
 
-    for c in [x.city for x in a.neighbors]:
+    for c in [x.city for x in a.neighbors[:-1]]:
 
       if a.index>c.index: a,c = c,a
 
@@ -50,22 +50,58 @@ if len(sys.argv) < 2:
   exit()
 
 
+# cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
+
+# nearestneighbor.nearneighbortour(cities)
+
+# totaldistance = tourdistance(cities)
+# improvment = 1
+# while improvment:
+#   twoopt(cities)
+#   newdistance = tourdistance(cities)
+#   improvment = totaldistance - newdistance
+#   totaldistance = newdistance
+
+# print tourdistance(cities)
+class measure(object):
+  """docstring for measure"""
+  def __init__(self, cityid, before2op, after2op):
+    self.id = cityid
+    self.before2op = before2op
+    self.after2op = after2op
+    
+
 cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
 
-nearestneighbor.nearneighbortour(cities)
+tours = []
 
-totaldistance = tourdistance(cities)
-improvment = 1
-while improvment:
-  print totaldistance
-  twoopt(cities)
-  newdistance = tourdistance(cities)
-  improvment = totaldistance - newdistance
-  totaldistance = newdistance
+for i in range(len(cities)):
+  cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
 
-#twoopt(cities)
+  nearestneighbor.nearneighbortour(cities,i)
 
-print tourdistance(cities)
+  before2op = tourdistance(cities)
+
+  totaldistance = tourdistance(cities)
+  improvment = 1
+  while improvment:
+    twoopt(cities)
+    newdistance = tourdistance(cities)
+    improvment = totaldistance - newdistance
+    totaldistance = newdistance
+
+  after2op = tourdistance(cities)
+
+  #print "root: %d  neartourlength: %d  after2op: %d"%(i,before2op,after2op)
+  tours.append(measure(i,before2op,after2op))
+
+print "best tours:", [x.id for x in sorted(tours,key=lambda x:x.before2op)]
+print "after 2opt:", [x.id for x in sorted(tours,key=lambda x:x.after2op)]
+
+results = [x.after2op for x in tours]
+
+print "best:%d worst:%d avg:%d  improvment over avg:%f"%(min(results),max(results),sum(results)/len(results) , min(results)/float(sum(results)/len(results)))
+
 
 # print "\n".join([str(x.id) + str([y.city.id for y in x.neighbors[:-1]]) for x in cities])
 #print "\n".join([str(x.id) for x in cities])

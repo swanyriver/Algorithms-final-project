@@ -1,3 +1,4 @@
 *.pyc
 record.txt
 provided/*.pyc
+.~lock*

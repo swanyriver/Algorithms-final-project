@@ -1,0 +1,110 @@
+---------------provided/tsp_test_cases/test-input-1.txt--------------------------------
+
+Optimization complete with a total path distance of: 5333
+50 tours constructed with Nearest Neighbor Hueristic and improved with an average of 24 2-opt swaps
+
+real	0m0.298s
+user	0m0.289s
+sys	0m0.009s
+5333
+ 
+  
+  
+---------------provided/tsp_test_cases/test-input-2.txt--------------------------------
+
+Optimization complete with a total path distance of: 7921
+100 tours constructed with Nearest Neighbor Hueristic and improved with an average of 52 2-opt swaps
+
+real	0m1.509s
+user	0m1.502s
+sys	0m0.004s
+7921
+ 
+  
+  
+---------------provided/tsp_test_cases/test-input-3.txt--------------------------------
+
+Optimization complete with a total path distance of: 13157
+250 tours constructed with Nearest Neighbor Hueristic and improved with an average of 124 2-opt swaps
+
+real	0m12.759s
+user	0m12.721s
+sys	0m0.016s
+13157
+ 
+  
+  
+---------------provided/tsp_test_cases/test-input-4.txt--------------------------------
+
+Optimization complete with a total path distance of: 18334
+500 tours constructed with Nearest Neighbor Hueristic and improved with an average of 250 2-opt swaps
+
+real	1m2.065s
+user	1m1.936s
+sys	0m0.028s
+18334
+ 
+  
+  
+---------------provided/tsp_test_cases/test-input-5.txt--------------------------------
+
+Optimization complete with a total path distance of: 25550
+557 tours constructed with Nearest Neighbor Hueristic and improved with an average of 511 2-opt swaps
+
+real	2m59.039s
+user	2m58.740s
+sys	0m0.028s
+25550
+ 
+  
+  
+---------------provided/tsp_test_cases/test-input-6.txt--------------------------------
+
+Optimization complete with a total path distance of: 36750
+196 tours constructed with Nearest Neighbor Hueristic and improved with an average of 1022 2-opt swaps
+
+real	2m59.074s
+user	2m58.795s
+sys	0m0.008s
+36750
+ 
+  
+  
+---------------provided/tsp_test_cases/test-input-7.txt--------------------------------
+
+Optimization complete with a total path distance of: 58024
+43 tours constructed with Nearest Neighbor Hueristic and improved with an average of 2420 2-opt swaps
+
+real	2m59.146s
+user	2m58.736s
+sys	0m0.124s
+58024
+ 
+  
+  
+---------------provided/tsp_example_1.txt--------------------------------
+
+Optimization complete with a total path distance of: 112727
+76 tours constructed with Nearest Neighbor Hueristic and improved with an average of 26 2-opt swaps
+
+real	0m0.788s
+user	0m0.778s
+sys	0m0.008s
+112727
+ 
+  
+  
+---------------provided/tsp_example_2.txt--------------------------------
+
+Optimization complete with a total path distance of: 2709
+280 tours constructed with Nearest Neighbor Hueristic and improved with an average of 66 2-opt swaps
+
+real	0m13.834s
+user	0m13.805s
+sys	0m0.008s
+2709
+ 
+  
+  
+---------------provided/tsp_example_3.txt--------------------------------
+

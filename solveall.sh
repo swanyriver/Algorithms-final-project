@@ -3,7 +3,7 @@ for f in $(ls provided/tsp_test_cases/test-input-*.txt);
 do
     echo "---------------$f--------------------------------"
     echo 
-    time python -u nearNBapprox.py $f 178
+    time python -u nearNBapprox.py $f 179
     head -1 $f.tour
     echo " "
     echo "  "

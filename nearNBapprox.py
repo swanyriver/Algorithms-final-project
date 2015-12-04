@@ -12,17 +12,17 @@ def tourdistance(tour):
     for u,v in 
     izip_longest(range(len(tour)),range(1,len(tour)), fillvalue=0) )
 
-def setindex(city,i):
-  city.index = i
-  return city
+# def setindex(city,i):
+#   city.index = i
+#   return city
 
-def updateindexes(tour,start,end):
-  tour[start:end] = [setindex(tour[i],i) for i in range(start,end)]
+# def updateindexes(tour,start,end):
+#   tour[start:end] = [setindex(tour[i],i) for i in range(start,end)]
 
 def swap(tour,b,c):
   #print "swaping city%d @%d and city%d @%d"%(b.id,b.index,c.id,c.index)
   tour[b.index:c.index+1] = reversed(tour[b.index:c.index+1])
-  updateindexes(tour,b.index,c.index+1)
+  nearestneighbor.updateindexes(tour,b.index,c.index+1)
 
 
 def unsqrtdistance(u,v):
@@ -30,7 +30,7 @@ def unsqrtdistance(u,v):
 
 
 def twoopt(tour):
-  updateindexes(tour,0,len(tour))
+  nearestneighbor.updateindexes(tour,0,len(tour))
 
   for a in list(tour):
 

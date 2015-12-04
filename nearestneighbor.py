@@ -1,4 +1,6 @@
 import functools
+import random
+random.seed()
 
 @functools.total_ordering
 class Neighbor(object):
@@ -44,8 +46,14 @@ class nearcity(object):
   # def __str__(self):
   #   return self.__repr__()
 
-import random
-random.seed()
+
+def setindex(city,i):
+  city.index = i
+  return city
+
+def updateindexes(tour,start,end):
+  tour[start:end] = [setindex(tour[i],i) for i in range(start,end)]
+
 
 def nearneighbortour(cities,rindex = None):
 

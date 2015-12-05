@@ -1,3 +1,4 @@
+#generic city object, not used in this algorithm
 class City(object):
   """a cordinate point for TSP"""
   def __init__(self, num, x,y):
@@ -10,8 +11,7 @@ class City(object):
     return self.__repr__()
 
 
-
-
+#convert all lines in suplied file to a city object using suplied constructor
 def readCities(filename, cityconstructor=City):
   cityfile = open(filename,'r')
 

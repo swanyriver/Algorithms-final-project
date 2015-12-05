@@ -5,27 +5,23 @@ import sys
 from itertools import izip_longest
 from time import time
 
+#caclulate rounded distance between u and v
 def distance(u,v):
   return int(round(sqrt( (u.x-v.x)**2 + (u.y-v.y)**2 )))
 
+#calculate total distance of a tour
 def tourdistance(tour):
+  #izip_longest returns a generator with tupples [(0,1),(1,2) .. (n-1,n),(n,0)]
   return sum( distance(tour[u],tour[v]) 
     for u,v in 
     izip_longest(range(len(tour)),range(1,len(tour)), fillvalue=0) )
 
+#perform a 2-opt swap by reversing vertexes between
 def swap(tour,b,c):
-  #print "swaping city%d @%d and city%d @%d"%(b.id,b.index,c.id,c.index)
   tour[b.index:c.index+1] = reversed(tour[b.index:c.index+1])
   nearestneighbor.updateindexes(tour,b.index,c.index+1)
 
-
-def unsqrtdistance(u,v):
-  return (u.x-v.x)**2 + (u.y-v.y)**2 
-
-
 def twoopt(tour):
-
-  swapcount = 0
 
   nearestneighbor.updateindexes(tour,0,len(tour))
 
@@ -35,73 +31,59 @@ def twoopt(tour):
 
       if a.index>c.index: a,c = c,a
 
+      #b = vertex adjacent to a and between a and c
       b = tour[a.index+1]
+
+      #d = vertex adjacent to c and not between a and c
       d = tour[(c.index+1)%len(cities)]
 
+      #removing edges a,b and c,d will result in creating edges a,c and b,d
+      #                                        and reversing vertexes b---c
+      #only do so if the distance of the edges removed is greater then the ones created
       if b is not c and distance(a,b) + distance(c,d) > distance(a,c) + distance(b,d):
         swap(tour,b,c)
-        swapcount +=1
-
-  return swapcount
 
 
 ########################################
 ##########MAIN##########################
 ########################################
 
+#measure begingin time and set maximum time
 STARTTIME = time()
-MAXTIME = float('inf') if len(sys.argv) < 3 else int(sys.argv[2]) 
+MAXTIME = STARTTIME + float('inf') if len(sys.argv) < 3 else int(sys.argv[2]) 
 
+#ensure file to read is supplied
 if len(sys.argv) < 2: 
   print "must supply input file"
   exit()
 
-
-
+#read cities from file
 cities = getcities.readCities(sys.argv[1], nearestneighbor.nearcity)
+
+#create list of nearest neighbors for each city
 nearestneighbor.nearneighbors(cities)
-
-#assert [x.index for x in cities] == range(len(cities))
-#assert sorted(x.id for x in cities) == range(len(cities))
-
 
 besttour = float('inf')
 besttourstring = ""
 
 hardcopycities = cities
-#from random import shuffle
-#shuffle(hardcopycities)
-
-twoopts = []
 
 i = 0
-#for i in range(len(cities)):
-#for i in range(1):
-while ( i < len(cities) and time() - STARTTIME < MAXTIME ) or i == 0:
-
-  #print cities[i].id, time() - STARTTIME, MAXTIME
-
-  twooptcount = 0
+while ( i < len(cities) and time() < MAXTIME ) or i == 0:
 
   cities = list(hardcopycities)
 
-  #print i, " getting tour"
   nearestneighbor.nearneighbortour(cities,i)
 
   totaldistance = tourdistance(cities)
-  #print " (root:%d) tour gotten distance: "%cities[0].id, totaldistance
   improvment = 1
   while improvment:
-    twooptcount += twoopt(cities)
+    twoopt(cities)
     newdistance = tourdistance(cities)
     improvment = totaldistance - newdistance
     totaldistance = newdistance
 
-    if time() - STARTTIME >= MAXTIME: break
-
-  #print " two opt finished: ", totaldistance
-
-  twoopts.append(twooptcount)
+    if time() >= MAXTIME: break
 
   if totaldistance < besttour:
     besttour = totaldistance
@@ -109,11 +91,7 @@ while ( i < len(cities) and time() - STARTTIME < MAXTIME ) or i == 0:
 
   i+=1
 
-
-print "Optimization complete with a total path distance of:", besttour
-print "%d tours constructed with Nearest Neighbor Hueristic and improved with an average of %d 2-opt swaps"%(i,sum(twoopts)/len(twoopts))
-
+#output best found tour to file
 f = open(sys.argv[1] + ".tour", "w")
 f.write("%d\n%s"%(besttour,besttourstring))
 f.close()
-#print besttourstring

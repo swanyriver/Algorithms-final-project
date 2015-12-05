@@ -5,3 +5,4 @@ provided/*.pyc
 *.odt
 *.pdf
 *.txt
+*.sh

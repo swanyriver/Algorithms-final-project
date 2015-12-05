@@ -1,8 +1,0 @@
-pcity id:0 x:1 y:2  predecessor:7, descendants:[]
-pcity id:7 x:2 y:1  predecessor:5, descendants:[0]
-pcity id:6 x:7 y:2  predecessor:4, descendants:[]
-pcity id:1 x:3 y:6  predecessor:2, descendants:[]
-pcity id:3 x:6 y:6  predecessor:2, descendants:[]
-pcity id:2 x:5 y:6  predecessor:4, descendants:[1, 3]
-pcity id:4 x:5 y:4  predecessor:5, descendants:[6, 2]
-pcity id:5 x:4 y:3  predecessor:None, descendants:[7, 4]

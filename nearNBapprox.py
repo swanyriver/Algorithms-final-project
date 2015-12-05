@@ -69,13 +69,16 @@ besttourstring = ""
 
 hardcopycities = cities
 
+#itterate over all cities as root of tour if time allows
 i = 0
 while ( i < len(cities) and time() < MAXTIME ) or i == 0:
 
   cities = list(hardcopycities)
 
+  #create new tour with cities[i] as root
   nearestneighbor.nearneighbortour(cities,i)
 
+  #perform 2-opt itterations until there is no improvement
   totaldistance = tourdistance(cities)
   improvment = 1
   while improvment:
@@ -86,6 +89,7 @@ while ( i < len(cities) and time() < MAXTIME ) or i == 0:
 
     if time() >= MAXTIME: break
 
+  #update best tour found so far
   if totaldistance < besttour:
     besttour = totaldistance
     besttourstring = "\n".join([str(x.id) for x in cities])

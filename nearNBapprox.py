@@ -50,7 +50,8 @@ def twoopt(tour):
 
 #measure begingin time and set maximum time
 STARTTIME = time()
-MAXTIME = STARTTIME + float('inf') if len(sys.argv) < 3 else int(sys.argv[2]) 
+if len(sys.argv) < 3: MAXTIME = float('inf')
+else: MAXTIME = STARTTIME + int(sys.argv[2])
 
 #ensure file to read is supplied
 if len(sys.argv) < 2: 

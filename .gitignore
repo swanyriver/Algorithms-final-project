@@ -2,3 +2,6 @@
 record.txt
 provided/*.pyc
 .~lock*
+*.odt
+*.pdf
+*.txt

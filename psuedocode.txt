@@ -1,7 +1,68 @@
-Cities = [cityobjects{x,y,neighbors}]
+//assume defined as presumed
+//distance(u,v)  or dist(u,v)
+//tourdistance(tour)
+
+//cities = [cityobjects{x,y,neighbors}]
 
 
+//takes unorderd cities
+//modifies cities updating their neighbors list to nearest M
+NEAREST_NEIGHBORS(cities):
+    for all pairs (u,v) in cities:
+        if |u.neighbors| < NUM_NEIGHBORS: u.neighbors.add(v)
+        else if dist(u,v) < max(dist(u,u.neigbor[i]) for all i):
+            replace greatest distance u.neighbor with v
 
-bestTour = INFINITY,{}
+
+//takes unorderd cities
+//modifies order to a tour order
+NEAR_NEIGHBOR_TOUR(cities, rootindex):
+    
+    swap cities[rootindex],cities[0]
+    
+    for u = 0 to |cities|-1:
+        if index of all cities[u].neighbors < u:
+            vindex = indexof nearest vertex in cities[u+1:]
+        else:
+            vindex = indexof nerest cities[u].neighbor not yet in tour //index > u
+       
+        swap cities[u+1], cities[vindex]
+
+
+//takes a list of cities in a tour order
+TWO_OPT(tour):
+
+    for a in tour:
+        for c in a.neighbors:
+            b = vertex adjacent to a and between a and c
+            d = vertex adjacent to c and not between a and c
+            
+            //removing edges a,b and c,d will result in creating edges a,c and b,d
+            //                                        and reversing vertexes b---c
+            //only do so if the distance of the edges removed is greater then the ones created
+            
+            if b is not c and dist(a,b) + dist(c,d) > dist(a,c) + dist(b,d):
+                reverse tour[b-c]
+
+
+TSP_APPROX_TOUR(cities):
+    bestTour = INFINITY,{}
+    
+    NEAREST_NEIGHBORS(cities)
+    
+    
+    for i = 1 to |cities|:
+    
+        NEAR_NEIGHBOR_TOUR(cities, cities[i]):
+        
+        while tourdistance(cities) is decreasing:
+            TWO_OPT(cities)
+    
+        
+        if tourdistance(cities) < bestTour:
+            bestTour = tourdistance(cities), {record of cities order}
+            
+    
+    return best_tour
 
 
